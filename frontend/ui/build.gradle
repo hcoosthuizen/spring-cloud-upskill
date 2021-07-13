@@ -13,8 +13,18 @@ task buildUi(type: NpxTask) {
   outputs.dir('dist')
 }
 
-jar {
-  from 'dist/ngui' into 'static'
+sourceSets {
+  main {
+    resources {
+      srcDir 'dist/'
+    }
+  }
 }
+
+jar {
+  from 'dist/'
+}
+
+processResources.dependsOn buildUi
 
 jar.dependsOn buildUi
