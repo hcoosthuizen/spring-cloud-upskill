@@ -1,0 +1,16 @@
+plugins {
+    id 'com.github.node-gradle.node' version '3.1.0'
+    id 'java'
+}
+
+task buildUi(type: NodeTask) {
+    script = file("node_modules/@angular/cli/bin/ng")
+    args = ['build', '--aot']
+}
+
+jar {
+  from 'dist/ngui' into 'static'
+}
+
+buildUi.dependsOn npmInstall
+jar.dependsOn buildUi
