@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: my-api-gateway
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: gateway
+
+server:
+  port: 8082

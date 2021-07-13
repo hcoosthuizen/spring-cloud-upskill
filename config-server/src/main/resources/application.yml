@@ -1,0 +1,16 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: my-configserver
+  cloud:
+    config:
+      server:
+        git:
+          uri: file://${user.home}/discovery/spring-cloud-config-upskill
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8448/eureka/
