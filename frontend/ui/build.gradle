@@ -25,6 +25,10 @@ jar {
   from 'dist/'
 }
 
+clean {
+  delete 'dist'
+}
+
 processResources.dependsOn buildUi
 
 jar.dependsOn buildUi
