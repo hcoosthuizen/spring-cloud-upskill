@@ -2,7 +2,9 @@ import {Component, OnInit} from '@angular/core';
 import {Pokemon} from '../../api/models/pokemon';
 import {Store} from '@ngrx/store';
 import {Observable, of} from 'rxjs';
-import {AppState, selectAll} from '../../api/services/store/pokemon-controller.reducer';
+import {selectPokemonList} from '../../api/services/store/pokemon-controller.reducer';
+import {AppState} from '../../store/app.reducer';
+import {fetchPokemonFromService} from '../../api/services/store/pokemon-controller.actions';
 
 @Component({
   selector: 'app-pokemon-list',
@@ -13,10 +15,11 @@ export class PokemonListComponent implements OnInit {
   pokemon: Observable<Pokemon[]>;
 
   constructor(private store: Store<AppState>) {
-    this.pokemon = of()
+    this.pokemon = of();
   }
 
   ngOnInit(): void {
-    this.pokemon = this.store.select(selectAll);
+    this.store.dispatch(fetchPokemonFromService({}));
+    this.pokemon = this.store.select(selectPokemonList);
   }
 }
