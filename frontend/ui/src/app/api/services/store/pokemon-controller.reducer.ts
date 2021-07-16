@@ -7,7 +7,7 @@ export interface PokemonControllerState {
 }
 
 const initialState: PokemonControllerState = {
-  pokemonList: [{name: 'Bulbasaur', elementalType: 'Grass'}]
+  pokemonList: []
 };
 
 export const selectAll = createFeatureSelector<PokemonControllerState>('pokemonListComponent');
@@ -30,8 +30,6 @@ export const pokemonReducer = createReducer(
     }
   }),
   on(fetchPokemonFromServiceSuccess, (state, action) => {
-    console.log("ReducerSuccess")
-    console.dir(action.resultList);
     return {
       ...state,
       pokemonList: action.resultList
