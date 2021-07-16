@@ -8,7 +8,7 @@ spring:
     config:
       server:
         git:
-          uri: file://${user.home}/discovery/spring-cloud-config-upskill
+          uri: https://github.com/hcoosthuizen/spring-cloud-config-upskill.git
 
 eureka:
   client:
