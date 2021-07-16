@@ -23,6 +23,7 @@
         <module>config-server</module>
         <module>eureka-server</module>
         <module>pokemon-service</module>
+        <module>move-service</module>
     </modules>
 
     <dependencies>

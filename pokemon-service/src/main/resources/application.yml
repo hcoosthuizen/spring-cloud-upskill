@@ -1,6 +1,6 @@
 spring:
   application:
-    name: Pokemon Service
+    name: pokemon-service
   h2:
     console:
       enabled: true
