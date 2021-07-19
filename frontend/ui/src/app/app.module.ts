@@ -12,6 +12,10 @@ import {PokemonControllerEffects} from './api/services/store/pokemon-controller.
 import {pokemonReducer} from './api/services/store/pokemon-controller.reducer';
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import {environment} from '../environments/environment';
+import {InjectableRxStompConfig, RxStompService, rxStompServiceFactory} from '@stomp/ng2-stompjs';
+import {rxStompConfig} from './rx-stomp.config';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import {POKEMON_LIST_FEATURE} from './api/services/store/features';
 
 @NgModule({
   declarations: [
@@ -23,11 +27,22 @@ import {environment} from '../environments/environment';
     AppRoutingModule,
     HttpClientModule,
     StoreModule.forRoot(appReducer),
-    StoreModule.forFeature('pokemonListComponent', pokemonReducer),
+    StoreModule.forFeature(POKEMON_LIST_FEATURE, pokemonReducer),
     StoreDevtoolsModule.instrument({logOnly: environment.production}),
-    EffectsModule.forRoot([PokemonControllerEffects])
+    EffectsModule.forRoot([PokemonControllerEffects]),
+    NgbModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: InjectableRxStompConfig,
+      useValue: rxStompConfig
+    },
+    {
+      provide: RxStompService,
+      useFactory: rxStompServiceFactory,
+      deps: [InjectableRxStompConfig]
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

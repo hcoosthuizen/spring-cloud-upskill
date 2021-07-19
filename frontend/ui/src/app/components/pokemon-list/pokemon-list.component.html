@@ -1,6 +1,6 @@
 <h2>Discovered Pokemon:</h2>
 
-<table>
+<table class="table">
   <thead>
   <tr>
     <th scope="col">Name</th>
@@ -12,3 +12,7 @@
     <td>{{ mon.elementalType }}</td>
   </tr>
 </table>
+
+<p *ngFor="let message of messages">
+  <ngb-alert [type]="'info'" (closed)="close(message)">{{ message }}</ngb-alert>
+</p>

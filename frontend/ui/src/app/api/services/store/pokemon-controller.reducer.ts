@@ -1,6 +1,7 @@
-import {addPokemonToPokemonList, fetchPokemonFromServiceSuccess, updatePokemonInPokemonList} from './pokemon-controller.actions';
+import {addPokemonToPokemonList, fetchAllPokemonFromServiceSuccess, updatePokemonInPokemonList} from './pokemon-controller.actions';
 import {Pokemon} from '../../models/pokemon';
 import {createFeatureSelector, createReducer, createSelector, on} from '@ngrx/store';
+import {POKEMON_LIST_FEATURE} from './features';
 
 export interface PokemonControllerState {
   pokemonList: Pokemon[];
@@ -10,9 +11,9 @@ const initialState: PokemonControllerState = {
   pokemonList: []
 };
 
-export const selectAll = createFeatureSelector<PokemonControllerState>('pokemonListComponent');
+export const selectForPokemonList = createFeatureSelector<PokemonControllerState>(POKEMON_LIST_FEATURE);
 
-export const selectPokemonList = createSelector(selectAll, (state) => state.pokemonList);
+export const selectAllPokemon = createSelector(selectForPokemonList, (state) => state.pokemonList);
 
 export const pokemonReducer = createReducer(
   initialState,
@@ -29,7 +30,7 @@ export const pokemonReducer = createReducer(
       pokemonList: updatedList
     }
   }),
-  on(fetchPokemonFromServiceSuccess, (state, action) => {
+  on(fetchAllPokemonFromServiceSuccess, (state, action) => {
     return {
       ...state,
       pokemonList: action.resultList

@@ -24,6 +24,7 @@
         <module>eureka-server</module>
         <module>pokemon-service</module>
         <module>move-service</module>
+        <module>api-gateway</module>
     </modules>
 
     <dependencies>
@@ -66,6 +67,44 @@
 
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>3.0.0</version>
+                <inherited>false</inherited>
+                <configuration>
+                    <workingDirectory>frontend</workingDirectory>
+                    <executable>./gradlew</executable>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>gradle clean</id>
+                        <phase>clean</phase>
+                        <configuration>
+                            <arguments>clean</arguments>
+                            <environmentVariables>
+                                <JAVA_HOME>${env.HOME}/.sdkman/candidates/java/11.0.11.hs-adpt</JAVA_HOME>
+                            </environmentVariables>
+                        </configuration>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>gradle bootJar</id>
+                        <phase>package</phase>
+                        <configuration>
+                            <environmentVariables>
+                                <JAVA_HOME>${env.HOME}/.sdkman/candidates/java/11.0.11.hs-adpt</JAVA_HOME>
+                            </environmentVariables>
+                            <arguments>spring-container:bootJar</arguments>
+                        </configuration>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>

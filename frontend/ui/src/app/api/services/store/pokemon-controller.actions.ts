@@ -11,11 +11,11 @@ export const updatePokemonInPokemonList = createAction(
   props<{ updatedPokemon: Pokemon, index: number }>()
 )
 
-export const fetchPokemonFromService = createAction(
+export const fetchAllPokemonFromService = createAction(
   '[Pokemon List] REQUEST_POKEMON_LIST',
   props<any>()
 )
-export const fetchPokemonFromServiceSuccess = createAction(
+export const fetchAllPokemonFromServiceSuccess = createAction(
   '[Pokemon List] REQUEST_POKEMON_LIST_SUCCESS',
   props<{ resultList: Pokemon[] }>()
 )

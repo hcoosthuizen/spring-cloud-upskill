@@ -6,6 +6,7 @@ import com.thegroup.pokemonservice.models.Pokemon;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.circuitbreaker.resilience4j.Resilience4JCircuitBreaker;
 import org.springframework.cloud.circuitbreaker.resilience4j.Resilience4JCircuitBreakerFactory;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,12 +17,14 @@ public class PokemonController {
     private final PokemonDao pokemonDao;
     private final MoveClient moveClient;
     private final Resilience4JCircuitBreakerFactory circuitBreakerFactory;
+    private final SimpMessagingTemplate messagingTemplate;
 
     @Autowired
-    public PokemonController(PokemonDao pokemonDao, MoveClient moveClient, Resilience4JCircuitBreakerFactory circuitBreakerFactory) {
+    public PokemonController(PokemonDao pokemonDao, MoveClient moveClient, Resilience4JCircuitBreakerFactory circuitBreakerFactory, SimpMessagingTemplate messagingTemplate) {
         this.pokemonDao = pokemonDao;
         this.moveClient = moveClient;
         this.circuitBreakerFactory = circuitBreakerFactory;
+        this.messagingTemplate = messagingTemplate;
     }
 
     @GetMapping(value = "/{id}", produces = {"application/json"})
@@ -46,6 +49,7 @@ public class PokemonController {
 
     @PostMapping("/new")
     public void addPokemon(@RequestBody Pokemon pokemon) {
-        pokemonDao.save(pokemon);
+        final Pokemon savedPokemon = pokemonDao.save(pokemon);
+        this.messagingTemplate.convertAndSend("/notifications/discoveries", savedPokemon);
     }
 }

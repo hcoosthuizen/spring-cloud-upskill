@@ -1,5 +1,5 @@
 import {Actions, createEffect, ofType} from '@ngrx/effects';
-import {fetchPokemonFromService, fetchPokemonFromServiceSuccess} from './pokemon-controller.actions';
+import {fetchAllPokemonFromService, fetchAllPokemonFromServiceSuccess} from './pokemon-controller.actions';
 import {catchError, map, mergeMap} from 'rxjs/operators';
 import {PokemonControllerService} from '../pokemon-controller.service';
 import {EMPTY} from 'rxjs';
@@ -9,9 +9,9 @@ import {Injectable} from '@angular/core';
 export class PokemonControllerEffects {
   fetchAllPokemon$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(fetchPokemonFromService),
+      ofType(fetchAllPokemonFromService),
       mergeMap(() => this.pokemonControllerService.getAllPokemon().pipe(
-        map(pokemon => fetchPokemonFromServiceSuccess({resultList: pokemon})),
+        map(pokemon => fetchAllPokemonFromServiceSuccess({resultList: pokemon})),
         catchError(() => EMPTY)
       ))
     ));
