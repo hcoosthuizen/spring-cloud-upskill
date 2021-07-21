@@ -1,8 +1,9 @@
 import { InjectableRxStompConfig } from '@stomp/ng2-stompjs';
+import { environment } from '../environments/environment';
 
 export const rxStompConfig: InjectableRxStompConfig = {
   // Which server?
-  brokerURL: 'ws://localhost:8082/ws-endpoint',
+  brokerURL: `ws://${environment.gatewayHost}/ws-endpoint`,
 
   // Headers
   // Typical keys: login, passcode, host
@@ -16,7 +17,7 @@ export const rxStompConfig: InjectableRxStompConfig = {
   // Wait in milliseconds before attempting auto reconnect
   // Set to 0 to disable
   // Typical value 500 (500 milli seconds)
-  reconnectDelay: 500,
+  reconnectDelay: 2000,
 
   // Will log diagnostics on console
   // It can be quite verbose, not recommended in production

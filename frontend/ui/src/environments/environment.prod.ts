@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+  production: true,
+  gatewayHost: 'localhost:8082'
 };
