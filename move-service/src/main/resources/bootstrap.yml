@@ -2,7 +2,7 @@ spring:
   application:
     name: move-service
 server:
-  port: 8088
+  port: 0
 eureka:
   client:
     service-url:

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin(originPatterns = {"http://localhost:*"})
 @RequestMapping("/pokemon")
 public class PokemonController {
     private final PokemonDao pokemonDao;
@@ -35,7 +36,6 @@ public class PokemonController {
 
     @GetMapping(value = "/all", produces = {"application/json"})
     @ResponseBody
-    @CrossOrigin(origins = {"http://localhost:4200"})
     public List<Pokemon> getAllPokemon() {
         return pokemonDao.findAll();
     }

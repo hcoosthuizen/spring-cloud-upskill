@@ -20,8 +20,7 @@ public class WebSocketConfiguration implements WebSocketMessageBrokerConfigurer 
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
         registry.addEndpoint("/ws-endpoint")
-                .setAllowedOrigins("http://localhost:4200")
-                .setHandshakeHandler(new DefaultHandshakeHandler(new TomcatRequestUpgradeStrategy())) // Fixes HTTP400 Invalid handshake error
-                .withSockJS();
+                .setAllowedOriginPatterns("http://localhost:*")
+                .setHandshakeHandler(new DefaultHandshakeHandler(new TomcatRequestUpgradeStrategy()));
     }
 }
